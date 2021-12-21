@@ -1,6 +1,6 @@
 dmn.config.inc.php
-dashblocknotify.config.inc.php
-dashdupdate.php.lasthash
+gobyteblocknotify.config.inc.php
+gobytedupdate.php.lasthash
 .ssh
 .bash_history
 .bash_logout
