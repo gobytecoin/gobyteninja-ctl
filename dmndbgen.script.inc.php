@@ -1,21 +1,21 @@
 <?php
 
 /*
-    This file is part of Dash Ninja.
-    https://github.com/elbereth/dashninja-fe
+    This file is part of GoByte Ninja.
+    https://github.com/gobytecoin/gobyteninja-fe
 
-    Dash Ninja is free software: you can redistribute it and/or modify
+    GoByte Ninja is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    Dash Ninja is distributed in the hope that it will be useful,
+    GoByte Ninja is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with Dash Ninja.  If not, see <http://www.gnu.org/licenses/>.
+    along with GoByte Ninja.  If not, see <http://www.gnu.org/licenses/>.
 
  */
 
@@ -87,7 +87,7 @@ EOT;
 
 
 
-xecho("\033[1;31mDASH Ninja \033[0;31mControl \033[1;33mDatabase Generator \033[0;37mv\033[1;32m".DMN_VERSION."\n");
+xecho("\033[1;31mGoByte Ninja \033[0;31mControl \033[1;33mDatabase Generator \033[0;37mv\033[1;32m".DMN_VERSION."\n");
 
 if ($argc != 2) {
     xecho("Usage: ".$argv[0]." <command>\n");

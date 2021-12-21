@@ -1,21 +1,21 @@
 <?php
 
 /*
-    This file is part of Dash Ninja.
-    https://github.com/elbereth/dashninja-ctl
+    This file is part of GoByte Ninja.
+    https://github.com/gobytecoin/gobyteninja-ctl
 
-    Dash Ninja is free software: you can redistribute it and/or modify
+    GoByte Ninja is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    Dash Ninja is distributed in the hope that it will be useful,
+    GoByte Ninja is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with Dash Ninja.  If not, see <http://www.gnu.org/licenses/>.
+    along with GoByte Ninja.  If not, see <http://www.gnu.org/licenses/>.
 
  */
 
@@ -503,7 +503,7 @@ function dmn_create($dmnpid,$ip,$forcename = '') {
     $testinfo = '';
   }
   echo "Creating $newuname: ";
-  exec('useradd -m -c "Dash Ninja $testinfo Monitoring node #'.$newnum.'" -U -s /bin/false -p '.randomPassword(128).' '.$newuname.' 1>/dev/null 2>/dev/null',$output,$retval);
+  exec('useradd -m -c "GoByte Ninja $testinfo Monitoring node #'.$newnum.'" -U -s /bin/false -p '.randomPassword(128).' '.$newuname.' 1>/dev/null 2>/dev/null',$output,$retval);
   if ($retval != 0) {
     echo "Already exists!\n";
     if ($forcename == '') {
@@ -2193,7 +2193,7 @@ function dmn_status($dmnpid,$istestnet) {
 $lastrefresh = gmdate('Y-m-d H:i:s');
 $starttime = microtime(true);
 
-xecho("Dash Ninja Control [dmnctl] v".DMN_VERSION." (".date('Y-m-d H:i:s',filemtime(__FILE__)).")\n");
+xecho("GoByte Ninja Control [dmnctl] v".DMN_VERSION." (".date('Y-m-d H:i:s',filemtime(__FILE__)).")\n");
 
 // If there is at least a parameter identify the action
 if ($argc > 1) {
