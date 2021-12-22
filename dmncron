@@ -27,12 +27,12 @@ autoupdatelog=/dev/null
 
 # If parameter 1 is log then enable logging
 if [[ "$1" == "log" ]]; then
-  updatelog=/var/log/dashninja/update.log
-  statuslog=/var/log/dashninja/status.log
-  votesrrdlog=/var/log/dashninja/votesrrd.log
-  balancelog=/var/log/dashninja/balance.log
-  portchecklog=/var/log/dashninja/portcheck.log
-  autoupdatelog=/var/log/dashninja/autoupdate.log
+  updatelog=/var/log/gobyteninja/update.log
+  statuslog=/var/log/gobyteninja/status.log
+  votesrrdlog=/var/log/gobyteninja/votesrrd.log
+  balancelog=/var/log/gobyteninja/balance.log
+  portchecklog=/var/log/gobyteninja/portcheck.log
+  autoupdatelog=/var/log/gobyteninja/autoupdate.log
 fi
 
 # Sequentially run scripts
@@ -40,13 +40,13 @@ fi
 /usr/bin/timeout 10m /opt/dmnctl/dmnctl status >> $statuslog
 #/opt/dmnctl/dmnvotesrrd >> $votesrrdlog
 /usr/bin/php /opt/dmnctl/dmndbgen masternodeactive >> $statuslog
-/usr/bin/php /home/dash-mnwww/www/main/api/cron.php main nodesstatus >> $statuslog
-/usr/bin/php /home/dash-mnwww/www/main/api/cron.php main blocksconsensus >> $statuslog
-/usr/bin/php /home/dash-mnwww/www/main/api/cron.php main votelimit >> $statuslog
-/usr/bin/php /home/dash-mnwww/www/main/api/cron.php main masternodeslistfull >> $statuslog
-/usr/bin/php /home/dash-mnwww/www/main/api/cron.php main protxfull >> $statuslog
-/usr/bin/php /home/dash-mnwww/www/main/api/cron.php main governanceproposals >> $statuslog
-/usr/bin/php /home/dash-mnwww/www/main/api/cron.php main governancetriggers >> $statuslog
+/usr/bin/php /home/gobyte-mnwww/www/main/api/cron.php main nodesstatus >> $statuslog
+/usr/bin/php /home/gobyte-mnwww/www/main/api/cron.php main blocksconsensus >> $statuslog
+/usr/bin/php /home/gobyte-mnwww/www/main/api/cron.php main votelimit >> $statuslog
+/usr/bin/php /home/gobyte-mnwww/www/main/api/cron.php main masternodeslistfull >> $statuslog
+/usr/bin/php /home/gobyte-mnwww/www/main/api/cron.php main protxfull >> $statuslog
+/usr/bin/php /home/gobyte-mnwww/www/main/api/cron.php main governanceproposals >> $statuslog
+/usr/bin/php /home/gobyte-mnwww/www/main/api/cron.php main governancetriggers >> $statuslog
 
 # Concurrently run scripts
 /usr/bin/nice -n 18 /opt/dmnctl/dmnbalance >> $balancelog &

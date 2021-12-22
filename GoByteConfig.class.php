@@ -19,10 +19,10 @@
 
  */
 
-// Deal with dash.conf configuration (read/write)
-class DashConfig {
+// Deal with gobyte.conf configuration (read/write)
+class GoByteConfig {
 
-  // Normal dash.conf configuration
+  // Normal gobyte.conf configuration
   private $config;
 
   // Masternode Control configuration
@@ -43,15 +43,15 @@ class DashConfig {
     if (file_exists($this->configfilename)) {
       $rawconf = file_get_contents($this->configfilename);
       $conf = explode("\n",trim($rawconf));
-      $magiclen = strlen(DashConfig::MAGIC);
+      $magiclen = strlen(GoByteConfig::MAGIC);
       for ($x = 0; $x < count($conf); $x++) {
-        if ((substr($conf[$x],0,1) == '#') && (substr($conf[$x],0,$magiclen) != DashConfig::MAGIC)) {
+        if ((substr($conf[$x],0,1) == '#') && (substr($conf[$x],0,$magiclen) != GoByteConfig::MAGIC)) {
           $lineval = array(0 => $conf[$x]);
         }
         else {
           $lineval = explode('=',$conf[$x]);
         }
-        if (substr($lineval[0],0,$magiclen) == DashConfig::MAGIC) {
+        if (substr($lineval[0],0,$magiclen) == GoByteConfig::MAGIC) {
           $this->mnctlcfg[substr($lineval[0],$magiclen)] = $lineval[1];
         }
         else {
@@ -69,11 +69,11 @@ class DashConfig {
 
   function __construct($uname) {
 
-    if (file_exists('/home/'.$uname.'/.dashcore/dash.conf')) {
-      $this->configfilename = '/home/'.$uname.'/.dashcore/dash.conf';
+    if (file_exists('/home/'.$uname.'/.gobytecore/gobyte.conf')) {
+      $this->configfilename = '/home/'.$uname.'/.gobytecore/gobyte.conf';
     }
-    elseif (file_exists('/home/'.$uname.'/.dash/dash.conf')) {
-      $this->configfilename = '/home/'.$uname.'/.dash/dash.conf';
+    elseif (file_exists('/home/'.$uname.'/.gobyte/gobyte.conf')) {
+      $this->configfilename = '/home/'.$uname.'/.gobyte/gobyte.conf';
     }
     else {
       $this->configfilename = '/home/'.$uname.'/.darkcoin/darkcoin.conf';
@@ -128,10 +128,10 @@ class DashConfig {
       }
       foreach ($this->mnctlcfg as $key => $value) {
         if ($value === false) {
-          $rawconf .= DashConfig::MAGIC.$key."\n";
+          $rawconf .= GoByteConfig::MAGIC.$key."\n";
         }
         else {
-          $rawconf .= DashConfig::MAGIC.$key.'='.$value."\n";
+          $rawconf .= GoByteConfig::MAGIC.$key.'='.$value."\n";
         }
       }
       $res = file_put_contents($this->configfilename,$rawconf);

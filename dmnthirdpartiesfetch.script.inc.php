@@ -57,7 +57,7 @@ if ($res !== false) {
     $tp["btcdrk"] = array("StatValue" => $res["return"]["markets"]["DRK"]["lasttradeprice"],
                           "LastUpdate" => time(),
                           "Source" => "cryptsy");
-    echo "OK (".$res["return"]["markets"]["DRK"]["lasttradeprice"]." BTC/DASH)\n";
+    echo "OK (".$res["return"]["markets"]["DRK"]["lasttradeprice"]." BTC/GBX)\n";
   }
   else {
     echo "Failed (JSON)\n";
@@ -73,12 +73,12 @@ $res = file_get_contents('https://poloniex.com/public?command=returnTicker');
 if ($res !== false) {
   $res = json_decode($res,true);
 //  var_dump($res);
-  if (($res !== false) && is_array($res) && (count($res) > 0) && array_key_exists('BTC_DASH',$res)
-      && is_array($res["BTC_DASH"]) && array_key_exists("last",$res["BTC_DASH"])) {
-    $tp["btcdrk"] = array("StatValue" => $res["BTC_DASH"]["last"],
+  if (($res !== false) && is_array($res) && (count($res) > 0) && array_key_exists('BTC_GBX',$res)
+      && is_array($res["BTC_GBX"]) && array_key_exists("last",$res["BTC_GBX"])) {
+    $tp["btcdrk"] = array("StatValue" => $res["BTC_GBX"]["last"],
         "LastUpdate" => time(),
         "Source" => "poloniex");
-    echo "OK (".$res["BTC_DASH"]["last"]." BTC/DASH)\n";
+    echo "OK (".$res["BTC_GBX"]["last"]." BTC/GBX)\n";
   }
   else {
     echo "Failed (JSON)\n";
@@ -170,14 +170,14 @@ else {
   echo "Failed (GET)\n";
 }
 
-// https://bittrex.com/api/v1.1/public/getticker?market=BTC-DASH
+// https://bittrex.com/api/v1.1/public/getticker?market=BTC-GBX
 
 xecho("Fetching from CoinMarketCap: ");
-$res = file_get_contents('http://coinmarketcap-nexuist.rhcloud.com/api/dash');
+$res = file_get_contents('http://coinmarketcap-nexuist.rhcloud.com/api/gobyte');
 $resdone = 0;
 if ($res !== false) {
   $res = json_decode($res,true);
-  if (($res !== false) && is_array($res) && array_key_exists('symbol',$res) && ($res['symbol'] == 'dash') && array_key_exists('timestamp',$res)) {
+  if (($res !== false) && is_array($res) && array_key_exists('symbol',$res) && ($res['symbol'] == 'gbx') && array_key_exists('timestamp',$res)) {
     $tbstamp = date('Y-m-d H:i:s',$res['timestamp']);
     if (array_key_exists('position',$res)) {
       $tp["marketcappos"] = array("StatValue" => $res["position"],
@@ -292,9 +292,10 @@ else {
 }
 
 $dw = array();
-
-xecho("Fetching budgets list from DashCentral: ");
-$res = file_get_contents('https://www.dashcentral.org/api/v1/budget?partner='.DMN_DASHWHALE_PARTNERID);
+/*
+//TODO
+xecho("Fetching budgets list from GoByteCentral: ");
+$res = file_get_contents('https://www.dashcentral.org/api/v1/budget?partner='.DMN_GOBYTEWHALE_PARTNERID);
 $proposals = array();
 if ($res !== false) {
   $res = json_decode($res,true);
@@ -317,8 +318,8 @@ else {
 }
 
 foreach($proposals as $proposal) {
-  xecho("Fetching budget $proposal from DashCentral: ");
-  $res = file_get_contents('https://www.dashcentral.org/api/v1/proposal?partner='.DMN_DASHWHALE_PARTNERID.'&hash='.$proposal);
+  xecho("Fetching budget $proposal from GoByteCentral: ");
+  $res = file_get_contents('https://www.dashcentral.org/api/v1/proposal?partner='.DMN_GOBYTEWHALE_PARTNERID.'&hash='.$proposal);
   $dwentry = array("proposal" => array(),
                    "comments" => array());
   if ($res !== false) {
@@ -366,10 +367,11 @@ foreach($proposals as $proposal) {
     echo "Failed (GET)\n";
   }
 }
+*/
 
 xecho("Submitting to web service: ");
 $payload = array("thirdparties" => $tp,
-                 "dashwhale" => $dw);
+                 "gobytewhale" => $dw);
 $content = dmn_cmd_post('/thirdparties',$payload,$response);
 var_dump($content);
 if (strlen($content) > 0) {

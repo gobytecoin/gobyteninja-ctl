@@ -42,22 +42,22 @@ function dmn_checkportopen($ip, $port, $testnet, $config, &$subver, &$errmsg) {
   }
   try
   {
-    $c = new \Dash\Node($ip,$bindip,$port,DMN_PORTCHECK_TIMEOUT,DMN_VERSION,$sversion,$protocol,$magic);
+    $c = new \GoByte\Node($ip,$bindip,$port,DMN_PORTCHECK_TIMEOUT,DMN_VERSION,$sversion,$protocol,$magic);
     $subver = $c->getSubVer();
     $c->closeConnection();
     $res = 1;
   }
-  catch (\Dash\EFailedToReadFromPeer $eftrfp) {
+  catch (\GoByte\EFailedToReadFromPeer $eftrfp) {
     $subver = '';
     $errmsg = $eftrfp->getMessage();
     $res = 1;
   }
-  catch (\Dash\EUnexpectedFragmentation $euf) {
+  catch (\GoByte\EUnexpectedFragmentation $euf) {
     $subver = '';
     $errmsg = $euf->getMessage();
     $res = 1;
   }
-  catch (\Dash\EUnexpectedPacketType $eupt) {
+  catch (\GoByte\EUnexpectedPacketType $eupt) {
     $subver = '';
     $errmsg = $eupt->getMessage();
     $res = 3;

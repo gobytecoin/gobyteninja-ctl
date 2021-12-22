@@ -189,7 +189,7 @@ foreach($mncheck as $mnpubkey) {
   else {
     $mncurbalance = floatval($res)/100000000;
     $mncurbalancerdisplay = sprintf("%.9f",$mncurbalance);
-    echo "$mncurbalancerdisplay DASH\n";
+    echo "$mncurbalancerdisplay GBX\n";
     $payload[] = array('TestNet' => 0,
                        'PubKey' => $mnpubkey,
                        'Balance' => $mncurbalance,
@@ -208,7 +208,7 @@ foreach($tncheck as $mnpubkey) {
   else {
     $mncurbalance = floatval($res);
     $mncurbalancerdisplay = sprintf("%.9f",$mncurbalance);
-    echo "$mncurbalancerdisplay DASH\n";
+    echo "$mncurbalancerdisplay GBX\n";
     $payload[] = array('TestNet' => 1,
                        'PubKey' => $mnpubkey,
                        'Balance' => $mncurbalance,

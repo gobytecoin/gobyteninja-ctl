@@ -17,8 +17,8 @@ if [ "$1" == "test" ]
 then
   mnsuffix=/testnet3
 fi
-mnpath=/home/$2/.dash$mnsuffix
-echo "Cleaning dash data directory: $mnpath"
+mnpath=/home/$2/.gobyte$mnsuffix
+echo "Cleaning gobyte data directory: $mnpath"
 if [ -d "$mnpath" ]
 then
   cleanFile "$mnpath/budget"

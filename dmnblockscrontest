@@ -31,5 +31,5 @@ fi
 # Sequentially run scripts
 /usr/bin/nice -n 14 /opt/dmnctl/dmnblockdegapper test >> $blockdegapperlog
 /usr/bin/nice -n 14 /opt/dmnctl/dmnblockparser >> $blockparserlog
-/usr/bin/nice -n 14 /usr/bin/php /home/dash-www/www/api/cron.php test blocks24h >> $blocksjsonlog
-/usr/bin/nice -n 14 /usr/bin/php /home/dash-www/www/api/cron.php test blockssuperblocks >> $blocksjsonlog
+/usr/bin/nice -n 14 /usr/bin/php /home/gobyte-www/www/api/cron.php test blocks24h >> $blocksjsonlog
+/usr/bin/nice -n 14 /usr/bin/php /home/gobyte-www/www/api/cron.php test blockssuperblocks >> $blocksjsonlog

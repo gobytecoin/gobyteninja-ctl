@@ -36,8 +36,8 @@ DEFINE('DMN_PID_PREFIX','dmn');
 //  Regex for masternode usernames
 DEFINE('DMN_PID_REGEX',"/dmn(\d\d*)/");
 
-// Default path to dashd
-DEFINE('DMN_DASHD_DEFAULT','/usr/local/bin/dashd');
+// Default path to gobyted
+DEFINE('DMN_GOBYTED_DEFAULT','/usr/local/bin/gobyted');
 
 // How much to wait for start/stop before giving up (in seconds)
 DEFINE('DMN_STOPWAIT',10);
@@ -92,32 +92,32 @@ DEFINE('DMN_BLOCKPARSER_SEMAPHORE','/var/run/dmnblockparser.pid');
 //  Activate archival (if disabled files are deleted once consumed)
 DEFINE('DMN_BLOCKPARSER_ARCHIVE_DO',false);
 //  Folder to archive json files (username subfolders will be created)
-DEFINE('DMN_BLOCKPARSER_ARCHIVE','/home/dash-blkhist/archive/current/');
+DEFINE('DMN_BLOCKPARSER_ARCHIVE','/home/gobyte-blkhist/archive/current/');
 //  Folder to archive longterm (multiple json files together per username)
-DEFINE('DMN_BLOCKPARSER_ARCHIVE_LONGTERM','/home/dash-blkhist/archive/longterm/');
+DEFINE('DMN_BLOCKPARSER_ARCHIVE_LONGTERM','/home/gobyte-blkhist/archive/longterm/');
 //  Minimum number of files to tar together for longterm archiving
 DEFINE('DMN_BLOCKPARSER_ARCHIVE_LONGTERM_MIN',576);
 
 // Third parties fetching configuration
-//  Dash Whale partner ID
-DEFINE('DMN_DASHWHALE_PARTNERID', '000000000000');
+//  GoByte Whale partner ID
+DEFINE('DMN_GOBYTEWHALE_PARTNERID', '000000000000');
 
 // Auto-Update URLs
-//  Testnet binary (Bamboo DASH server)
-DEFINE('DMN_AUTOUPDATE_TEST','https://bamboo.dash.org/artifact/DASHL-DEV/JOB1/build-latestSuccessful/gitian-linux-dash-dist/dashcore-0.12.2-linux64.tar.gz');
+//
+DEFINE('DMN_AUTOUPDATE_TEST','https://github.com/gobytecoin/gobyte/releases/download/v0.16.1.1/gobytecore-0.16.1-x86_64-linux-gnu.tar.gz');
 //  Semaphore
 DEFINE('DMN_AUTOUPDATE_SEMAPHORE','/var/run/dmnautoupdate.pid');
 
 // Command Download specifics
 //  Download folder
-DEFINE('DMN_CDL_DIR','/var/www/dash/download/');
+DEFINE('DMN_CDL_DIR','/var/www/gobyte/download/');
 //  Download URL
 DEFINE('DMN_CDL_URL','https://cdl.yourdomain.tk/');
 
 // Direct access to DB (should not be used)
-DEFINE('DMNCTLMYSQLUSER','dash-mnninja-com');
+DEFINE('DMNCTLMYSQLUSER','gobyte-mnninja-com');
 DEFINE('DMNCTLMYSQLPASS','yourrandompassword');
-DEFINE('DMNCTLMYSQLDATABASE','dash_ninja');
+DEFINE('DMNCTLMYSQLDATABASE','gobyte_ninja');
 DEFINE('DMNCTLMYSQLHOST','localhost');
 
 // Webservice configuration
@@ -126,7 +126,7 @@ define('DMN_URL_API','https://yourdomain.tk/api');
 //  Private API end-point
 define('DMN_URL_CMD','https://cmd.yourdomain.tk');
 //  Private API SSL configuration (you need a CA, certificate and private key for this hub client)
-define('DMN_SSL_CAINFO','/usr/share/ca-certificates/yourdomain.tk/DashNinja_CA_Root.crt');
+define('DMN_SSL_CAINFO','/usr/share/ca-certificates/yourdomain.tk/GoByteNinja_CA_Root.crt');
 define('DMN_SSL_CERT','/etc/ssl/private/hub01.cmd.yourdomain.tk.crt');
 define('DMN_SSL_KEY','/etc/ssl/private/hub01.cmd.yourdomain.tk.key');
 //  Private API interface to use

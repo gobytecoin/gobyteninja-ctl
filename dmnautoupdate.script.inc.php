@@ -50,7 +50,7 @@ else {
     $data = array("Content-Length" => "-1",'Last-Modified' => 'Always');
 }
 
-xecho("Fetching from DASH Atlassian Bamboo server: ");
+xecho("Fetching from github releases: ");
 
 $url = DMN_AUTOUPDATE_TEST;
 $headers = get_headers($url, 1);
@@ -113,27 +113,27 @@ else {
         }
         closedir($handle);
     }
-    $dashdpath = $tdir."/".$folder."/bin/dashd";
-    if (($folder === FALSE) || (!file_exists($dashdpath))) {
+    $gobytedpath = $tdir."/".$folder."/bin/gobyted";
+    if (($folder === FALSE) || (!file_exists($gobytedpath))) {
         echo "ERROR (Could not extract correctly)\n";
         die2(5, DMN_AUTOUPDATE_SEMAPHORE);
     }
-    echo "OK (".$dashdpath.")\n";
+    echo "OK (".$gobytedpath.")\n";
     xecho("Retrieving version number: ");
-    exec($dashdpath." -?",$output,$ret);
+    exec($gobytedpath." -?",$output,$ret);
     if ($ret != 0) {
-        echo "ERROR (dashd return code $ret)\n";
+        echo "ERROR (gobyted return code $ret)\n";
         die2(5, DMN_AUTOUPDATE_SEMAPHORE);
     }
-    if (!preg_match('/^Dash Core Daemon version v(.+)$/',$output[0],$match)) {
-        echo "ERROR (dashd return version do not match regexp '".$output[0]."')\n";
+    if (!preg_match('/^GoByte Core Daemon version v(.+)$/',$output[0],$match)) {
+        echo "ERROR (gobyted return version do not match regexp '".$output[0]."')\n";
         die2(6, DMN_AUTOUPDATE_SEMAPHORE);
     };
     $version = $match[1];
     echo "OK (".$version.")\n";
     xecho("Adding new version to database: ");
-    rename($dashdpath,"/opt/dashd/0.12/dashd-".$version);
-    exec("/opt/dmnctl/dmnctl version /opt/dashd/0.12/dashd-".$version." ".$version." 1 1",$output,$ret);
+    rename($gobytedpath,"/opt/gobyted/0.12/gobyted-".$version);
+    exec("/opt/dmnctl/dmnctl version /opt/gobyted/0.12/gobyted-".$version." ".$version." 1 1",$output,$ret);
     var_dump($output);
     var_dump($ret);
     delTree($tdir);

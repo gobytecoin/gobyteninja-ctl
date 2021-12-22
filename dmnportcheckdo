@@ -29,7 +29,7 @@ require_once('dmn.config.inc.php');
 require_once('dmn.functions.inc.php');
 
 // Load external libraries
-require_once('Dash-Node.php');
+require_once('GoByte-Node.php');
 
 // Load the script
 require_once('dmnportcheckdo.script.inc.php');

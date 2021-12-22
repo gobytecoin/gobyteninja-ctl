@@ -37,19 +37,19 @@ function delTree($dir) {
   return rmdir($dir);
 }
 
-xecho("dashd auto updater (testnet) v1.0\n");
+xecho("gobyted auto updater (testnet) v1.0\n");
 xecho("Retrieving current latest binary date and size: ");
-$test = get_headers("https://dashpay.atlassian.net/builds/browse/DASHL-DEV/latest/artifact/JOB1/gitian-linux-dash-dist/dash-0.12.0-linux64.tar.gz", 1);
+$test = get_headers("https://github.com/gobytecoin/gobyte/releases/download/v0.16.2.1/gobytecore-0.16.2-x86_64-linux-gnu.tar.gz", 1);
 echo $test["Last-Modified"]."\n";
 
 $datanew = sha1(serialize(array("Last-Modified" => $test["Last-Modified"],
                                 "Content-Length" => $test["Content-Length"])));
 xecho("Retrieving current binary date and size: ");
-$dataold = file_get_contents(DMN_DIR."dashdupdate.php.lasthash");
+$dataold = file_get_contents(DMN_DIR."gobytedupdate.php.lasthash");
 echo "OK\n";
 
 if ($datanew != $dataold) {
-  file_put_contents(DMN_DIR."/dashdupdate.php.lasthash",$datanew);
+  file_put_contents(DMN_DIR."/gobytedupdate.php.lasthash",$datanew);
   xecho("Stopping testnet nodes... ");
   passthru(DMN_DIR."/dmnctl stop testnet");
   passthru(DMN_DIR."/dmnctl stop testnet p2pool");
@@ -60,17 +60,17 @@ if ($datanew != $dataold) {
   passthru(DMN_DIR."/dmnreset test tdmn04");
   passthru(DMN_DIR."/dmnreset test tp2pool");
   xecho("Getting new binary: ");
-  $tmpdir = tempdir("dashdupdater");
+  $tmpdir = tempdir("gobytedupdater");
   $curdir = getcwd();
   chdir($tmpdir);
-  passthru("wget -q https://dashpay.atlassian.net/builds/browse/DASHL-DEV/latest/artifact/JOB1/gitian-linux-dash-dist/dash-0.12.0-linux64.tar.gz");
+  passthru("wget -q https://github.com/gobytecoin/gobyte/releases/download/v0.16.2.1/gobytecore-0.16.2-x86_64-linux-gnu.tar.gz");
   echo "OK... Untar: ";
-  passthru("tar xvf dash-0.12.0-linux64.tar.gz");
+  passthru("tar xvf gobytecore-0.16.2-x86_64-linux-gnu.tar.gz");
   echo "OK... Version: ";
-  $fnam = $tmpdir."/dash-0.12.0/bin/dashd";
-  $versionraw = dmn_dashdversion($fnam);
+  $fnam = $tmpdir."/gobytecore-0.16.2/bin/gobyted";
+  $versionraw = dmn_gobytedversion($fnam);
   echo $versionraw."... Moving: ";
-  $fnamnew = "/opt/dashd/0.12/dashd-$versionraw";
+  $fnamnew = "/opt/gobyted/0.16.2.1/gobyted-$versionraw";
   rename($fnam,$fnamnew);
   echo "OK... Submitting to DB: ";
   passthru("dmnctl version $fnamnew $versionraw 1 1");
@@ -78,7 +78,7 @@ if ($datanew != $dataold) {
   chdir($curdir);
   delTree($tmpdir);
   xecho("Starting testnet nodes with re-index... ");
-  unlink("/home/dash-ninja/cache/dashninja_cmd_getnodes_1");
+  unlink("/home/gobyte-ninja/cache/gobyteninja_cmd_getnodes_1");
   passthru(DMN_DIR."/dmnctl start testnet masternode reindex");
   passthru(DMN_DIR."/dmnctl start testnet p2pool reindex");
   echo "OK\n";

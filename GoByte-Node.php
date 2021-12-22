@@ -19,13 +19,13 @@
 
  */
 
-namespace Dash;
+namespace GoByte;
 
 use Exception;
 
-define('PROTOCOL_VERSION',70218);
+define('PROTOCOL_VERSION',70210);
 define('PROTOCOL_MAGIC',"\xbf\x0c\x6b\xbd");
-define('HRVERSION',"/Dash Core:%s/GoByte Ninja Port Checker:%s.%d/");
+define('HRVERSION',"/GoByte Core:%s/GoByte Ninja Port Checker:%s.%d/");
 define('THISVERSION',6);
 
 function strToHex($string){
@@ -45,7 +45,7 @@ class EUnexpectedPacketType extends Exception {}
 class EFailedToReadFromPeer extends Exception {}
 class EUnexpectedFragmentation extends Exception {}
 
-// Connect to P2P port of dashd
+// Connect to P2P port of gobyted
 // Based on code found on internet for Bitcoin (don't remember the source sorry)
 class Node {
 	private $sock;
@@ -55,7 +55,7 @@ class Node {
         private $subver;
         private $prot_magic;
 
-	public function __construct($ip, $bindip, $port = 9999, $timeout = 5, $versionid = '1.0.0', $sversionid = '0.12.2.2', $protver = PROTOCOL_VERSION, $prot_magic = PROTOCOL_MAGIC) {
+	public function __construct($ip, $bindip, $port = 12455, $timeout = 5, $versionid = '1.0.0', $sversionid = '0.16.2.1', $protver = PROTOCOL_VERSION, $prot_magic = PROTOCOL_MAGIC) {
 
 		$this->sock = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 		if ($this->sock === false) {

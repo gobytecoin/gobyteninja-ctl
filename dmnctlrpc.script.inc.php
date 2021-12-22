@@ -36,8 +36,8 @@
   $rpccommand = $argv[2];
   $outputfile = $argv[3];
   $nodepath1 = DMN_PID_PATH.$uname.'/.darkcoin/';
-$nodepath2 = DMN_PID_PATH.$uname.'/.dash/';
-$nodepath3 = DMN_PID_PATH.$uname.'/.dashcore/';
+$nodepath2 = DMN_PID_PATH.$uname.'/.gobyte/';
+$nodepath3 = DMN_PID_PATH.$uname.'/.gobytecore/';
 
   if (is_dir($nodepath1)) {
     $nodepath = $nodepath1;
@@ -58,7 +58,7 @@ $nodepath3 = DMN_PID_PATH.$uname.'/.dashcore/';
   }
 
   xecho("Loading configuration for $uname: ");
-  $conf = new DashConfig($uname);
+  $conf = new GoByteConfig($uname);
   if ($conf->isConfigLoaded()) {
     echo "OK\n";
   }
@@ -68,7 +68,7 @@ $nodepath3 = DMN_PID_PATH.$uname.'/.dashcore/';
   }
 
   xecho("Executing RPC command '$rpccommand': ");
-  $rpc = new \elbereth\EasyDash($conf->getconfig('rpcuser'),$conf->getconfig('rpcpassword'),'localhost',$conf->getconfig('rpcport'));
+  $rpc = new \gobyte\EasyGoByte($conf->getconfig('rpcuser'),$conf->getconfig('rpcpassword'),'localhost',$conf->getconfig('rpcport'));
 
   $rpclist = explode(' ',$rpccommand);
   $rpcparams = array();

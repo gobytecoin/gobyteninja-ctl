@@ -26,7 +26,7 @@ if (!defined('DMN_SCRIPT') || !defined('DMN_CONFIG') || (DMN_SCRIPT !== true) ||
 define('DMN_VERSION','1.2.5');
 
 // Start the masternodes
-function dmn_start($uname,$conf,$dashd,$extra="") {
+function dmn_start($uname,$conf,$gobyted,$extra="") {
 
   $testnet = ($conf->getconfig('testnet') == 1);
   $pid = dmn_getpid($uname,$testnet);
@@ -49,7 +49,7 @@ function dmn_start($uname,$conf,$dashd,$extra="") {
       $res = false;
       while ((!$res) && (!dmn_checkpid(dmn_getpid($uname,$testnet))) && ($trycount < 3)) {
         echo "T$trycount.";
-        exec("/sbin/start-stop-daemon -S -c $RUNASUID:$RUNASGID -N " . $nice . " -x /usr/bin/env MALLOC_ARENA_MAX=1 " . $dashd . " -u $RUNASUID -q -- -daemon $extra");
+        exec("/sbin/start-stop-daemon -S -c $RUNASUID:$RUNASGID -N " . $nice . " -x /usr/bin/env MALLOC_ARENA_MAX=1 " . $gobyted . " -u $RUNASUID -q -- -daemon $extra");
         usleep(250000);
         $waitcount = 0;
         while ((!dmn_checkpid(dmn_getpid($uname, $testnet))) && ($waitcount < DMN_STOPWAIT)) {
@@ -87,13 +87,13 @@ function dmn_stop($uname,$conf) {
     $testinfo = '';
   }
 
-  $rpc = new \elbereth\EasyDash($conf->getconfig('rpcuser'),$conf->getconfig('rpcpassword'),'localhost',$conf->getconfig('rpcport'));
+  $rpc = new \gobyte\EasyGoByte($conf->getconfig('rpcuser'),$conf->getconfig('rpcpassword'),'localhost',$conf->getconfig('rpcport'));
 
   $pid = dmn_getpid($uname,$testnet);
 
   if ($pid !== false) {
     $tmp = $rpc->stop();
-    if (($rpc->response['result'] != "DarkCoin server stopping") && ($rpc->response['result'] != "Dash server stopping") && ($rpc->response['result'] != "Dash Core server stopping")) {
+    if (($rpc->response['result'] != "DarkCoin server stopping") && ($rpc->response['result'] != "GoByte server stopping") && ($rpc->response['result'] != "GoByte Core server stopping")) {
       echo "Unexpected daemon answer (".$rpc->response['result'].") ";
     }
     usleep(250000);
@@ -117,11 +117,11 @@ function dmn_stop($uname,$conf) {
         $res = false;
       }
       else {
-        if (file_exists('/home/'.$uname."/.darkcoin$testinfo/darkcoind.pid")) {
-          unlink('/home/'.$uname."/.darkcoin$testinfo/darkcoind.pid");
+        if (file_exists('/home/'.$uname."/.gobytecore$testinfo/gobyted.pid")) {
+          unlink('/home/'.$uname."/.gobytecore$testinfo/gobyted.pid");
         }
-        if (file_exists('/home/'.$uname."/.dash$testinfo/dashd.pid")) {
-          unlink('/home/'.$uname."/.dash$testinfo/dashd.pid");
+        if (file_exists('/home/'.$uname."/.gobyte$testinfo/gobyted.pid")) {
+          unlink('/home/'.$uname."/.gobyte$testinfo/gobyted.pid");
         }
         echo "OK (Killed) ";
         $res = true;
@@ -141,17 +141,17 @@ function dmn_stop($uname,$conf) {
 }
 
 if (($argc < 3) && ($argv > 5)) {
-  xecho("Usage: ".basename($argv[0])." uname (start|stop|restart) [dashd] [extra_params]\n");
+  xecho("Usage: ".basename($argv[0])." uname (start|stop|restart) [gobyted] [extra_params]\n");
   die(1);
 }
 
 $uname = $argv[1];
 $command = $argv[2];
 if ($argc > 3) {
-  $dashd = $argv[3];
+  $gobyted = $argv[3];
 }
 else {
-  $dashd = DMN_DASHD_DEFAULT;
+  $gobyted = DMN_GOBYTED_DEFAULT;
 }
 if ($argc > 4) {
   $extra = $argv[4];
@@ -165,19 +165,19 @@ if (!is_dir(DMN_PID_PATH.$uname)) {
   die(2);
 }
 
-$conf = new DashConfig($uname);
+$conf = new GoByteConfig($uname);
 if (!$conf->isConfigLoaded()) {
   xecho("Error (Config could not be loaded)\n");
   die(7);
 }
 
 if ($command == 'start') {
-  if (!is_executable($dashd)) {
-    xecho("Error ($dashd is not an executable file)\n");
+  if (!is_executable($gobyted)) {
+    xecho("Error ($gobyted is not an executable file)\n");
     die(8);
   }
   xecho("Starting $uname: ");
-  if (dmn_start($uname,$conf,$dashd,$extra)) {
+  if (dmn_start($uname,$conf,$gobyted,$extra)) {
     echo "\n";
     die(0);
   }
@@ -198,13 +198,13 @@ elseif ($command == 'stop') {
   }
 }
 elseif ($command == 'restart') {
-  if (!is_executable($dashd)) {
-    xecho("Error ($dashd is not an executable file)\n");
+  if (!is_executable($gobyted)) {
+    xecho("Error ($gobyted is not an executable file)\n");
     die(8);
   }
   xecho("Restarting $uname: ");
   if (dmn_stop($uname,$conf)) {
-    if (dmn_start($uname,$conf,$dashd,$extra)) {
+    if (dmn_start($uname,$conf,$gobyted,$extra)) {
      echo "\n";
      die(0);
     }

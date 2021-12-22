@@ -29,8 +29,8 @@ require_once('dmn.config.inc.php');
 require_once('dmn.functions.inc.php');
 
 // Load external libraries
-require_once('EasyDash-PHP/easydash.php');
-require_once('DashConfig.class.php');
+require_once('EasyGoByte-PHP/easygobyte.php');
+require_once('GoByteConfig.class.php');
 
 // Load the script
 require_once('dmnctlstartstopdaemon.script.inc.php');

@@ -39,7 +39,7 @@ if [[ "$1" == "log" ]]; then
 fi
 
 # Sequentially run scripts
-#/opt/dmnctl/dashdupdate >> $updatelog
+#/opt/dmnctl/gobytedupdate >> $updatelog
 /opt/dmnctl/dmnctl status >> $statuslog
 #/opt/dmnctl/dmnvotesrrd >> $votesrrdlog
 /opt/dmnctl/dmnblockparser >> $blockparserlog

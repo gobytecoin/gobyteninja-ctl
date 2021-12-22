@@ -22,18 +22,18 @@
 
 DEFINE('DMN_SCRIPT',true);
 
-require_once('EasyDash-PHP/easydash.php');
-require_once('DashConfig.class.php');
+require_once('EasyGoByte-PHP/easygobyte.php');
+require_once('GoByteConfig.class.php');
 require_once('dmn.config.inc.php');
-require_once('dashblocknotify.config.inc.php');
+require_once('gobyteblocknotify.config.inc.php');
 
-define('DASHBLOCKRETRIEVE','0.2.2-beta');
+define('GOBYTEBLOCKRETRIEVE','0.2.2-beta');
 
 function xecho($line) {
   echo date('Y-m-d H:i:s').' - '.$line;
 }
 
-xecho('DashNinja.pl Block Retrieve v'.DASHBLOCKRETRIEVE."\n");
+xecho('GoByteNinja.pl Block Retrieve v'.GOBYTEBLOCKRETRIEVE."\n");
 if (($argc < 3) || ($argc > 5)) {
   echo 'Usage: '.basename($argv[0]).' uname blockid [blockidto] [forcearchive]'."\n";
   die(1);
@@ -61,8 +61,8 @@ else {
 xecho("Block retrieval from $uname (from $blockidfrom to $blockidto), retrieving RPC configuration: ");
 
 if (isset($unamelist) && is_array($unamelist) && array_key_exists($uname,$unamelist)) {
-  $config = new DashConfig($uname);
-  $rpc = new \elbereth\EasyDash($config->getconfig('rpcuser'),$config->getconfig('rpcpassword'),'localhost',$config->getconfig('rpcport'));
+  $config = new GoByteConfig($uname);
+  $rpc = new \gobyte\EasyGoByte($config->getconfig('rpcuser'),$config->getconfig('rpcpassword'),'localhost',$config->getconfig('rpcport'));
   echo "OK\n";
 }
 else {

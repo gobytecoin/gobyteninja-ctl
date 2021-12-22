@@ -453,14 +453,15 @@ function dmn_blockparse($uname, $testnet, $mnpubkeys, $mndonations, $poolpubkeys
       $block = json_decode(file_get_contents("/dev/shm/$uname/$blockfile"),true);
       $minprotocol = 0;
       $maxprotocol = 9999999999;
+      // todo fix
       if ($block["version"] == 536870914) {
-        $minprotocol = 70208;
+        $minprotocol = 70210;
       }
       else if ($block["version"] == 536870912) {
-        $minprotocol = 70206;
+        $minprotocol = 70210;
       }
       else if ($block["version"] == 3) {
-          $maxprotocol = 70103;
+          $maxprotocol = 70210;
       }
       if (($block !== false) && isset($block) && array_key_exists('height',$block)) {
         if ($block['height'] == $blockid) {
@@ -646,7 +647,7 @@ function dmn_blockparse($uname, $testnet, $mnpubkeys, $mndonations, $poolpubkeys
                         "MemPoolDarkSendTXCount" => 0,
                         "BlockVersion" => $block['version']
                         );
-                    echo "$mnpayee ($mnpaid DASH) - ";
+                    echo "$mnpayee ($mnpaid GBX) - ";
                   }
                   else {
                     $protocol = 0;
